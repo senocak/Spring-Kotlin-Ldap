@@ -1,4 +1,4 @@
-package com.github.senocak.ldap
+package com.github.senocak.ldap.domain
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer
@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import javax.naming.Name
 import javax.naming.ldap.LdapName
 import org.springframework.boot.jackson.JsonComponent
-import org.springframework.data.ldap.repository.LdapRepository
 import org.springframework.ldap.odm.annotations.Attribute
 import org.springframework.ldap.odm.annotations.DnAttribute
 import org.springframework.ldap.odm.annotations.Entry
@@ -33,20 +32,20 @@ class UserModel {
     @Attribute(name = "displayName")
     var displayName: String? = null
 
+    @Attribute(name = "givenName")
+    var givenName: String? = null
+
     @DnAttribute(value = "ou")
     var group: String? = null
 
     @Attribute(name = "mail")
     var emails: List<String>? = null
 
-    //fun getDn(): String = dn.toString()
-
     override fun toString(): String =
         "UserModel(dn=$dn, uid=$uid, firstName=$firstName, lastName=$lastName," +
                 "userPassword=$userPassword, displayName=$displayName, group=$group," +
                 "emails=$emails)"
 }
-interface UserModelRepository : LdapRepository<UserModel>
 
 @JsonComponent
 class LdapNameSerializer : JsonSerializer<LdapName>() {

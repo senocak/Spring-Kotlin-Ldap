@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "f3540a97-511d-4c1c-84f8-4e0f922d66ae",
+		"name": "kotlin ldap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7821151",
+		"_collection_link": "https://lively-comet-8198.postman.co/workspace/An%C4%B1l~d33d46fc-ebc0-4ccb-81ba-caceff009d2d/collection/7821151-f3540a97-511d-4c1c-84f8-4e0f922d66ae?action=share&source=collection_link&creator=7821151"
+	},
+	"item": [
+		{
+			"name": "list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const   response    =   pm.response",
+							"        json        =   response.json()",
+							"pm.test(\"Status code is 200\", function () {",
+							"    response.to.have.status(200)",
+							"    pm.collectionVariables.set(\"firstUserUId\", json[0].uid)",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}",
+					"host": [
+						"{{base}}"
+					],
+					"query": [
+						{
+							"key": "uid",
+							"value": "8c73e44d-7ddc-46c2-b8ad-59561a4e82b2",
+							"description": "match full id",
+							"disabled": true
+						},
+						{
+							"key": "cn",
+							"value": "Amanda",
+							"description": "firstName, like filter",
+							"disabled": true
+						},
+						{
+							"key": "sn",
+							"value": "Becca",
+							"description": "lastName, like filter",
+							"disabled": true
+						},
+						{
+							"key": "givenName",
+							"value": "Amanda",
+							"description": "givenname, like filter",
+							"disabled": true
+						},
+						{
+							"key": "displayname",
+							"value": "Amanda",
+							"description": "match full name",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "test.org",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/{{firstUserUId}}",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"{{firstUserUId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"username\": \"{{$randomUserName}}\",\n    \"givenName\": \"{{$randomUserName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"password\": \"asenocak\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}",
+					"host": [
+						"{{base}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"e2c0d42e-c0bf-49c2-9e12-5863307fc9b1\",\n    \"password\": \"asenocak\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/login",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "firstUserUId",
+			"value": ""
+		}
+	]
+}

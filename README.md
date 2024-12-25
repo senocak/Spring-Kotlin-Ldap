@@ -21,3 +21,37 @@ craft LDAP queries with LdapTemplate.
    ./gradlew bootrun
    ```
 
+## Demo
+
+- List All Users
+  ```bash
+  curl --location 'http://localhost:8085/api?uid=8c73e44d-7ddc-46c2-b8ad-59561a4e82b2&cn=Amanda&sn=Becca&givenName=Amanda&displayname=Amanda&email=test.org'
+  ```
+
+- Find User by Uid
+  ```bash
+    curl --location 'http://localhost:8085/api/<uid>'
+    ```
+  
+- Create User
+  ```bash
+    curl --location 'http://localhost:8085/api' \
+   --header 'Content-Type: application/json' \
+   --data '{
+    "firstName": "Anjali",
+    "username": "Lynn_Bergstrom95",
+    "givenName": "Jada.Schneider",
+    "lastName": "Jast",
+    "password": "asenocak"
+   }'
+    ```
+  
+- Authenticate User
+  ```bash
+    curl --location 'http://localhost:8085/api/login' \
+   --header 'Content-Type: application/json' \
+   --data '{
+    "uid": "e2c0d42e-c0bf-49c2-9e12-5863307fc9b1",
+    "password": "asenocak"
+   }'
+    ```
