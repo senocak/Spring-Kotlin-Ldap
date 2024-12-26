@@ -4,6 +4,7 @@ import com.github.dockerjava.api.command.CreateContainerCmd
 import com.github.senocak.ldap.domain.UserDto
 import com.github.senocak.ldap.domain.UserModelRepository
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.InstanceOfAssertFactories
 import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.core.IsNull
@@ -30,6 +31,7 @@ import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
+import org.springframework.test.web.servlet.assertj.MockMvcTester
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -47,6 +49,7 @@ import java.util.UUID
 class LdapApplicationIT {
     @Autowired private lateinit var testRestTemplate: TestRestTemplate
     @Autowired protected lateinit var mockMvc: MockMvc
+    @Autowired protected lateinit var mockMvcTester: MockMvcTester
     @Autowired protected lateinit var userModelRepository: UserModelRepository
 
     companion object {
@@ -133,6 +136,14 @@ class LdapApplicationIT {
         // Given
         val requestBuilder: MockHttpServletRequestBuilder = MockMvcRequestBuilders.get("/api/U0")
         // testRestTemplate.getForEntity("/api/U0", UserDto::class.java)
+        /*
+        val result = mockMvcTester.get().uri("/api/{userId}", "U0")
+        assertThat(result)
+            .isNotNull()
+            .hasStatusOk()
+            .bodyJson()
+            .asInstanceOf(InstanceOfAssertFactories.LIST)
+        */
 
         // When
         val perform: ResultActions = mockMvc.perform(requestBuilder)
